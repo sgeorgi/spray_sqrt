@@ -11,7 +11,15 @@ class SqrtServiceSpec extends UnitSpec with ScalatestRouteTest with SqrtService 
   describe("SqrtService") {
     it("responds to a GET(/)") {
       Get() ~> sqrtRoute ~> check {
-        responseAs[String] should include("<h1>Say hello to <i>spray-routing</i> on <i>spray-can</i>!</h1>")
+        responseAs[String] should include("Say hello to <i>Sqrt-Service</i>!")
+        responseAs[String] should include("The square root of 25 is 5.0!")
+      }
+    }
+
+    it("responds to a GET(/?number=..) and computes") {
+      Get("/?number=1024") ~> sqrtRoute ~> check {
+        responseAs[String] should include("Say hello to <i>Sqrt-Service</i>!")
+        responseAs[String] should include("The square root of 1024 is 32.0!")
       }
     }
   }
